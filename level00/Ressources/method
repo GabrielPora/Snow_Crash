@@ -1,0 +1,28 @@
+# man group and understand the options -user and -group it is important to understand the rights
+# use 2>/dev/null for redirecting
+# grep -v 'proc' to filter everything that is not important
+# run the below command
+find / -user flag00 -group flag00 2>/dev/null | grep -v 'proc'
+
+# it will show the following
+/usr/sbin/john
+/rofs/usr/sbin/john
+
+# you will see that /usr/sbin/john is what we are looking for 
+cat /usr/sbin/flag
+cdiiddwpgswtgt
+
+# https://www.xarg.org/tools/caesar-cipher/
+# cdiiddwpgswtgt enter this but note to change the key to 11
+cdiiddwpgswtgt => nottoohardhere
+# nottoohardhere is our flag
+
+# now to try the flag that we got 
+su flag00
+password => nottoohardhere
+
+# remember to use get flag command
+getflag
+Check flag.Here is your token : x24ti5gi3x0ol2eh4esiuxias
+flag00@SnowCrash:~$ su level01
+# enter x24ti5gi3x0ol2eh4esiuxias as the password to level01

