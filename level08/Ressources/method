@@ -33,7 +33,7 @@ You may not access '/tmp/mytoken'
 level08@SnowCrash:~$ ln ~/token /tmp/GabeToken; ./level08 /tmp/GabeToken
 ln: failed to create hard link `/tmp/GabeToken' => `/home/user/level08/token': Invalid cross-device link
 
-#		Note the -s is for shared information and will solve the above problem
+#		Note the -s is for shared information and will solve the above problem by creating a symbolic link
 
 ln -s ~/token /tmp/GabeToken; ./level08 /tmp/GabeToken
 quif5eloekouj29ke0vouxean
