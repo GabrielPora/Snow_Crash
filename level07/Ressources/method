@@ -14,7 +14,7 @@ d--x--x--x 1 root    users    340 Aug 30  2015 ..
 level07@SnowCrash:~$ ./level07
 level07
 
-# It seems as to run itself, Lets make sure if this assumption is true.
+# It seems as to run it's own name, Lets make sure if this assumption is true.
 #	Runnning `find / -iname "level07" 2>/dev/null | grep -v 'proc'` returns nothing
 
 # Lets see what is in the env
@@ -43,7 +43,7 @@ _=/usr/bin/env
 # We see something interesting in this. Take a look at the $LOGNAME variable. It the same out put as the the executable ./level07.
 # 	We shell try to change it and see what happens, using our "trusted" friend /bin/echo
 
-# We are going to assume that they simply echo the env variable $LOGNAME, which is the current user name.
+# We are going to assume that they simply export the env variable $LOGNAME, which is the current user name.
 #	WE will test this by changing the env variable.
 
 level07@SnowCrash:~$ export LOGNAME=Gabe; ./level07
