@@ -42,7 +42,7 @@ level09@SnowCrash:~$ ./level09 1234
 level09@SnowCrash:~$ ./level09 1111
 1234
 
-# Bingo! now we see a pattern emerged and we can see that the program is incrementing the inputs but the coloumb number it is in
+# Bingo! now we see a pattern emerged and we can see that the program is incrementing the ascii value of the inputs by the coloumb number it is in
 							   0123		it increases by 1 as the coloumb number of the character
 level09@SnowCrash:~$ ./level09 aaaa
 abcd
