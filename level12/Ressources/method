@@ -67,9 +67,11 @@ level12@SnowCrash:~$ find / -iname "level12" 2>/dev/null | grep -v 'proc'
 		# localhost:4646
 #	We also see that it will funtion in line 11 on line 12 of the program  
 		@output = `egrep "^$xx" /tmp/xd 2>&1`;
-	The above line will use @output which 
-	Starts program prog in a separated process and returns a file handle that you can use to read data from this program 
-	(if mode is "r", the default) or to write data to this program (if mode is "w"). 
+	The above line will use @output.
+
+
+ # On login we see a perl script that is running a webserver on the port 4646, that can take two get params, x and y.
+ 	We can clearly were we gonna do the exploit here, there is backquote.
 
 # Lets see if we can exploit it with echo and using nc with our port 5151  and give us the password too and 6969 only gives the flag
 #	Note localhost 5151 is home in networking
