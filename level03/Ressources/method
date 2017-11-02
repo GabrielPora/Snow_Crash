@@ -14,7 +14,7 @@ Exploit me
 we see that it prints out 'Exploit me'.
 So now we will do just that.
 
-if we look at the executable level03 in terms of what `strings` uses. We can see that the binary use `/usr/bin/env 
+if we look at the executable level03 in terms of what it uses. We can see that the binary use `/usr/bin/env 
 		echo 'Exploit me' to print Exploit me we can change the location of echo with a fake one that will provide use
 		with the command getflag, because ./level03 does have the right of flag03 user
 
