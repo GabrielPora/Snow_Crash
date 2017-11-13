@@ -15,9 +15,8 @@ level00@SnowCrash:~$ pwd
 
 # man group and understand the options -user and -group it is important to understand the rights
 # use 2>/dev/null for redirecting the standard error output to null, so I don’t see all the “Permission Denied” errors. 
-# grep -v 'proc' to filter everything that is not important
 # run the below command
-find / -user flag00 -group flag00 2>/dev/null | grep -v 'proc'
+find / -user flag00 -group flag00 2>/dev/null
 
 # it will show the following
 /usr/sbin/john

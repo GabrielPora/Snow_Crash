@@ -37,7 +37,10 @@ drwxr-xr-x  1 root root   80 Aug 29  2015 usr
 drwxr-xr-x  1 root root  160 Mar 12  2016 var
 lrwxrwxrwx  1 root root   33 Aug 29  2015 vmlinuz -> boot/vmlinuz-3.2.0-89-generic-pae
 
-Find that /etc/passwd doesn't have the regulary permission, you can actually read it so we will want to cat it
+# We see tha that there is the /etc folder. 
+	This is the nerve center of your system, it contains all system related configuration files in here or in its sub-directories.
+		After running ls -la /etc/		We can see a passwd file 
+		Find that /etc/passwd doesn't have the regulary permission, you can actually read it so we will want to cat it
 
 
  get it
@@ -55,7 +58,7 @@ Find that /etc/passwd doesn't have the regulary permission, you can actually rea
  you will get an output like this:
  ```
 root@kali:~# john passwd 
-Using default input encoding: UTF-8
+Using default input encoding: UTF-8			# Side Note UTF-8 is the Unicode standard and it is the charater set that all computers use.
 Loaded 1 password hash (descrypt, traditional crypt(3) [DES 128/128 AVX-16])
 Press 'q' or Ctrl-C to abort, almost any other key for status
 abcdefg          (flag01)
