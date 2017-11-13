@@ -28,7 +28,8 @@ cat /usr/sbin/john
 cdiiddwpgswtgt
 
 # https://www.xarg.org/tools/caesar-cipher/
-# cdiiddwpgswtgt enter this but note to change the key to 11
+# cdiiddwpgswtgt enter this but note to change the key to guess as we do not know what engryption was used on it. 
+	The key will change to 11 Once you run it.
 cdiiddwpgswtgt => nottoohardhere
 # nottoohardhere is our flag
 

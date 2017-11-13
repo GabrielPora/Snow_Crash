@@ -1,3 +1,42 @@
+# First run ls -la
+
+level01@SnowCrash:~$ ls -la
+total 12
+dr-x------ 1 level01 level01  100 Mar  5  2016 .
+d--x--x--x 1 root    users    340 Aug 30  2015 ..
+-r-x------ 1 level01 level01  220 Apr  3  2012 .bash_logout
+-r-x------ 1 level01 level01 3518 Aug 30  2015 .bashrc
+-r-x------ 1 level01 level01  675 Apr  3  2012 .profile
+
+# We have nothing. Run ls -la / and see what we have to work with.
+level01@SnowCrash:~$ ls -la /
+total 2
+drwxr-xr-x  1 root root  240 Nov  7 05:55 .
+drwxr-xr-x  1 root root  240 Nov  7 05:55 ..
+drwxr-xr-x  2 root root 2814 Mar  9  2016 bin
+drwxr-xr-x  1 root root   60 Aug 30  2015 boot
+dr-xr-xr-x  7 root root 2048 Mar 12  2016 cdrom
+drwxr-xr-x 14 root root 4000 Nov  7 05:55 dev
+drwxr-xr-x  1 root root  260 Nov  7 05:55 etc
+d--x--x--x  1 root root   80 Aug 30  2015 home
+lrwxrwxrwx  1 root root   37 Aug 29  2015 initrd.img -> /boot/initrd.img-3.2.0-89-generic-pae
+drwxr-xr-x 23 root root 1436 Aug 30  2015 lib
+drwxr-xr-x  1 root root   60 Mar 12  2016 media
+drwxr-xr-x  2 root root    3 Mar 12  2016 mnt
+drwxr-xr-x  1 root root   60 Nov  7 05:55 opt
+dr-xr-xr-x 88 root root    0 Nov  7 05:55 proc
+drwxrwxrwx 21 root root  364 Mar 12  2016 rofs
+drwx------  5 root root  165 Mar 12  2016 root
+drwxr-xr-x 14 root root  540 Nov  7 06:03 run
+drwxr-xr-x  2 root root 3469 Aug 30  2015 sbin
+drwxr-xr-x  2 root root    3 Mar  5  2012 selinux
+drwxr-xr-x  2 root root    3 Aug 29  2015 srv
+drwxr-xr-x 13 root root    0 Nov  7 05:55 sys
+d-wx-wx-wx  4 root root   80 Nov  7 06:14 tmp
+drwxr-xr-x  1 root root   80 Aug 29  2015 usr
+drwxr-xr-x  1 root root  160 Mar 12  2016 var
+lrwxrwxrwx  1 root root   33 Aug 29  2015 vmlinuz -> boot/vmlinuz-3.2.0-89-generic-pae
+
 Find that /etc/passwd doesn't have the regulary permission, you can actually read it so we will want to cat it
 
 
