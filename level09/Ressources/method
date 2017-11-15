@@ -42,7 +42,7 @@ level09@SnowCrash:~$ ./level09 1234
 level09@SnowCrash:~$ ./level09 1111
 1234
 
-# Bingo! now we see a pattern emerged and we can see that the program is incrementing the ascii value of the inputs by the coloumb number it is in
+# Bingo! now we see a pattern emerged and we can see that the program is incrementing the ascii value of the inputs by the column number it is in
 							   0123		it increases by 1 as the coloumb number of the character
 level09@SnowCrash:~$ ./level09 aaaa
 abcd
@@ -113,3 +113,6 @@ Password:
 Don't forget to launch getflag !
 flag09@SnowCrash:~$ getflag
 Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z
+
+# What we learnt
+#	This was just a simple encryption of the ascii values using the index of the positions the charactersare loocated on.
