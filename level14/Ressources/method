@@ -6,7 +6,10 @@ dr-x------ 1 level14 level14  100 Mar  5  2016 .
 d--x--x--x 1 root    users    340 Aug 30  2015 ..
 -r-x------ 1 level14 level14  220 Apr  3  2012 .bash_logout
 -r-x------ 1 level14 level14 3518 Aug 30  2015 .bashrc
--r-x------ 1 level14 level14  675 Apr  3  2012 .profile
+-r-x------ 1 level14 level14  675 Apr  3  2012 .
+
+level14@SnowCrash:~$ find / -iname "level14" 2>/dev/null
+# Gave nothing!
 
 # I had no idea where else to go after looking for hours so I said screw it and went into the gdb of getflag
 
@@ -137,35 +140,35 @@ Dump of assembler code for function main:
    0x08048b27 <+481>:	cmp    $0xbba,%eax
    0x08048b2c <+486>:	ja     0x8048b4d <main+519>
    0x08048b2e <+488>:	cmp    $0xbb8,%eax
-   0x08048b33 <+493>:	je     0x8048bf3 <main+685>
+   0x08048b33 <+493>:	je     0x8048bf3 <main+685>					#level00 flag
    0x08048b39 <+499>:	cmp    $0xbb8,%eax
-   0x08048b3e <+504>:	ja     0x8048c17 <main+721>
+   0x08048b3e <+504>:	ja     0x8048c17 <main+721>					#level01 flag
 ---Type <return> to continue, or q <return> to quit---
    0x08048b44 <+510>:	test   %eax,%eax
-   0x08048b46 <+512>:	je     0x8048bc6 <main+640>
-   0x08048b48 <+514>:	jmp    0x8048e06 <main+1216>
+   0x08048b46 <+512>:	je     0x8048bc6 <main+640>					#level02 flag
+   0x08048b48 <+514>:	jmp    0x8048e06 <main+1216>				#level03 flag
    0x08048b4d <+519>:	cmp    $0xbbc,%eax
-   0x08048b52 <+524>:	je     0x8048c83 <main+829>
+   0x08048b52 <+524>:	je     0x8048c83 <main+829>					#level04 flag
    0x08048b58 <+530>:	cmp    $0xbbc,%eax
-   0x08048b5d <+535>:	ja     0x8048ca7 <main+865>
-   0x08048b63 <+541>:	jmp    0x8048c5f <main+793>
+   0x08048b5d <+535>:	ja     0x8048ca7 <main+865>					#level04 flag
+   0x08048b63 <+541>:	jmp    0x8048c5f <main+793>					#level05 flag
    0x08048b68 <+546>:	cmp    $0xbc2,%eax
-   0x08048b6d <+551>:	je     0x8048d5b <main+1045>
+   0x08048b6d <+551>:	je     0x8048d5b <main+1045>				#level10 flag
    0x08048b73 <+557>:	cmp    $0xbc2,%eax
-   0x08048b78 <+562>:	ja     0x8048b95 <main+591>
+   0x08048b78 <+562>:	ja     0x8048b95 <main+591>					#level11 flag
    0x08048b7a <+564>:	cmp    $0xbc0,%eax
-   0x08048b7f <+569>:	je     0x8048d13 <main+973>
+   0x08048b7f <+569>:	je     0x8048d13 <main+973>					#level08 flag
    0x08048b85 <+575>:	cmp    $0xbc0,%eax
-   0x08048b8a <+580>:	ja     0x8048d37 <main+1009>
-   0x08048b90 <+586>:	jmp    0x8048cef <main+937>
+   0x08048b8a <+580>:	ja     0x8048d37 <main+1009>				#level09 flag
+   0x08048b90 <+586>:	jmp    0x8048cef <main+937>					#level07 flag
    0x08048b95 <+591>:	cmp    $0xbc4,%eax
-   0x08048b9a <+596>:	je     0x8048da3 <main+1117>
+   0x08048b9a <+596>:	je     0x8048da3 <main+1117>				#level12 flag
    0x08048ba0 <+602>:	cmp    $0xbc4,%eax
-   0x08048ba5 <+607>:	jb     0x8048d7f <main+1081>
+   0x08048ba5 <+607>:	jb     0x8048d7f <main+1081>				#level11 flag
    0x08048bab <+613>:	cmp    $0xbc5,%eax
-   0x08048bb0 <+618>:	je     0x8048dc4 <main+1150>
+   0x08048bb0 <+618>:	je     0x8048dc4 <main+1150>				#level13 flag
    0x08048bb6 <+624>:	cmp    $0xbc6,%eax
-   0x08048bbb <+629>:	je     0x8048de5 <main+1183>
+   0x08048bbb <+629>:	je     0x8048de5 <main+1183>				# This seems like the level14 flag
    0x08048bc1 <+635>:	jmp    0x8048e06 <main+1216>
    0x08048bc6 <+640>:	mov    0x804b060,%eax
    0x08048bcb <+645>:	mov    %eax,%edx
@@ -403,6 +406,10 @@ bffdf000-c0000000 rw-p 00000000 00:00 0          [stack]
 
 Program received signal SIGABRT, Aborted.
 0xb7fdd428 in __kernel_vsyscall ()
+
+So we run through every instance of jump from this point on where it has a main in the lable
+
+# This is where we found something that looks promising 
 (gdb) ju *0x8048de5								#We jump unconditionally to 0x8048de5		0x08048bbb <+629>:	je     0x8048de5 <main+1183>
 Continuing at 0x8048de5.
 7QiHafiNa3HVozsaXkawuYrTstxbpABHD8CPnHJ			#This is our key we have been looking for level14
@@ -462,7 +469,7 @@ x24ti5gi3x0ol2eh4esiuxias
 
 It's the level00 flag !!!
 
-we can see 15 repeatition of this symbol so we will try the last one
+we can see 15 repeatition of this symbol so we will try the last one which is the 16th one
 
 ```
 (gdb) ju *0x8048de5
