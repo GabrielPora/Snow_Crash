@@ -35,9 +35,9 @@ level11@SnowCrash:~$ vim level12.pl
   6 sub t {
   7   $nn = $_[1];
   8   $xx = $_[0];
-  9   $xx =~ tr/a-z/A-Z/;
- 10   $xx =~ s/\s.*//;
- 11   @output = `egrep "^$xx" /tmp/xd 2>&1`;
+  9   $xx =~ tr/a-z/A-Z/;								# File name needs to be capitals. this changes everything to uppercase and shell commands are casesensitive 
+ 10   $xx =~ s/\s.*//;									# this is dangerous to use as it takes all input to match
+ 11   @output = `egrep "^$xx" /tmp/xd 2>&1`;			# From past experience we know that this is a exploit, from level04 and level06. We must also make a temp file as it reads the file from the temp folder
  12   foreach $line (@output) {
  13       ($f, $s) = split(/:/, $line);
  14       if($s =~ $nn) {
@@ -58,9 +58,11 @@ level11@SnowCrash:~$ vim level12.pl
  29 n(t(param("x"), param("y")));
 
 # Rememeber we have the find command. Lets give it a go and see what we find, 
-level12@SnowCrash:~$ find / -iname "level12" 2>/dev/null | grep -v 'proc'
+level12@SnowCrash:~$ find / -iname "level12" 2>/dev/null
 /var/www/level12
 /rofs/var/www/level12
+# this file was the same file given to us if we cat the contents we would see that
+
 
 # We see a few important things in the file.
 	We see on line 2 we have some important information 
