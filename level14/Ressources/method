@@ -13,7 +13,9 @@ level14@SnowCrash:~$ find / -iname "level14" 2>/dev/null
 
 # I had no idea where else to go after looking for hours so I said screw it and went into the gdb of getflag
 
-
+# If we do a ls -ls on the getflag binary, we see that we have read and excecuatble rights to it, this allows us to use gdb on it
+level14@SnowCrash:~$ ls -la /bin/getflag
+-rwxr-xr-x 1 root root 11833 Aug 30  2015 /bin/getflag
 
 
 
