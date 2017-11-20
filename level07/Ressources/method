@@ -42,6 +42,7 @@ _=/usr/bin/env
 
 # We see something interesting in this. Take a look at the $LOGNAME variable. It the same out put as the the executable ./level07.
 # 	We shell try to change it and see what happens, using our "trusted" friend /bin/echo
+# If we run strings on this we also see that it confirms that it uses $LOGNAME
 
 # We are going to assume that they simply export the env variable $LOGNAME, which is the current user name.
 #	WE will test this by changing the env variable.

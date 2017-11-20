@@ -65,6 +65,9 @@ There are 2 exploits in this level03
 	The second being Path Lookup Attacks, the system command not running an explicit match for the path of the command being executed. 
 		This was understood from minishell. 
 
+
+# look into exploiting with malloc, Rob gave this advice
+
 further read
 https://www.pentestpartners.com/security-blog/exploiting-suid-executables/
 https://www.mattandreko.com/2011/12/02/exploit-exercises-nebula-01/

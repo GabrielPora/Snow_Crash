@@ -25,7 +25,7 @@ You may not access '/tmp/mytoken'
 
 # So no matter what, we can not access the keyname token with program level08
 
-# Now time to use knowledge gained from nibbler with ln -s for linking files 
+# Now time to use knowledge gained from nm & otool with ln -s for linking files 
 #		Note the -s is to make it a symbolic link and will solve the above problem
 #	The token file must be passed to level08, We only need to link the information as level08 has the rights to read the file anyway
 #	It will be done with the code below, We will create a GabeToken that will link to the token and access the same information 
