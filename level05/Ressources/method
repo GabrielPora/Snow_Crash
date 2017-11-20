@@ -44,7 +44,7 @@ done
 `echo 'getflag > /tmp/flag' > /opt/openarenaserver/gabe && sleep 125 && cat /tmp/flag && echo -ne '\a'` 
 
 -# echo 'getflag > /tmp/flag' > /opt/openarenaserver/gabe	##	This will put a flag file into the /opt/openarenaserver 
--# 	sleep 125 												##	It will sleep for 125 seconds 3mins
+-# 	sleep 125 												##	It will sleep for 125 seconds (2mins and 5seconds)
 -#	cat /tmp/flag											##	print it 
 -#	echo -ne '\a'											##	this will remove the newline added and  '\a' notify with a bell tone 
 
