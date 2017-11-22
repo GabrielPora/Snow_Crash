@@ -108,6 +108,9 @@ Check flag.Here is your token : feulo4b72j7edeahuete3no7c
 #	by switching out the file while the program is running. Hence a race condition.
 # We learnt about race conditions
 
+
+### NOTE that flag10 woupa2yuojeeaaed06riuj63c works for flag11
+
 Resources
 https://www.win.tue.nl/~aeb/linux/hh/hh-9.html
 https://linux.die.net/man/1/nc
